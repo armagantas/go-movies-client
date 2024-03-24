@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Home from "./components/Home";
 import { Link, Outlet } from "react-router-dom";
 
 const App = () => {
+  const [jwtToken, setJwtToken] = useState("");
   return (
     <div className="container">
       <div className="row">
@@ -10,9 +11,15 @@ const App = () => {
           <h1 className="mt-3">Go Watch a Movie with Golang</h1>
         </div>
         <div className="col text-end">
-          <Link href="/login">
-            <span className="badge bg-success">Login</span>
-          </Link>
+          {jwtToken === "" ? (
+            <Link href="/login">
+              <span className="badge bg-success">Login</span>
+            </Link>
+          ) : (
+            <a href="#!">
+              <span className="badge bg-danger">Logout</span>
+            </a>
+          )}
         </div>
         <hr className="mb-3" />
       </div>
@@ -35,24 +42,28 @@ const App = () => {
               >
                 Genres
               </Link>
-              <Link
-                to="/admin/movie/0"
-                className="list-group-item list-group-item-action"
-              >
-                Add Movie
-              </Link>
-              <Link
-                to="/manage-catalogue"
-                className="list-group-item list-group-item-action"
-              >
-                Manage Catalogue
-              </Link>
-              <Link
-                to="/graphql"
-                className="list-group-item list-group-item-action"
-              >
-                GraphQL Integration
-              </Link>
+              {jwtToken !== "" && (
+                <>
+                  <Link
+                    to="/admin/movie/0"
+                    className="list-group-item list-group-item-action"
+                  >
+                    Add Movie
+                  </Link>
+                  <Link
+                    to="/manage-catalogue"
+                    className="list-group-item list-group-item-action"
+                  >
+                    Manage Catalogue
+                  </Link>
+                  <Link
+                    to="/graphql"
+                    className="list-group-item list-group-item-action"
+                  >
+                    GraphQL Integration
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>
