@@ -12,7 +12,7 @@ const App = () => {
         </div>
         <div className="col text-end">
           {jwtToken === "" ? (
-            <Link href="/login">
+            <Link to="/login">
               <span className="badge bg-success">Login</span>
             </Link>
           ) : (
